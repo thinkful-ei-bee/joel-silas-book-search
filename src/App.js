@@ -15,12 +15,12 @@ export default class App extends Component {
     loading: false,
     response: [],
     error: null,
-    currentSearchTerm: 'Henry',
+    // currentSearchTerm: 'Henry',
   };
 
   handleSubmit = (searchTerms) => {
-    //const url = `${this.props.baseUrl}?q=flowers+inauthor:keyes&key=${k}`;
-    const url = `https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=${k}`;
+    const url = `${this.props.baseUrl}?q=flowers+inauthor:keyes&key=${k}`;
+    // const url = `https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=${k}`;
     const options = {
       method: 'GET',
     };
@@ -53,10 +53,10 @@ export default class App extends Component {
       <>
         <Header />
         <main role="main" className="App">
-          <SearchForm 
+          {/* <SearchForm 
             handleSubmit={this.handleSubmit}
             searchTerm={this.state.currentSearchTerm}
-          />
+          /> */}
           {this.state.response[0].kind}
         </main>
       </>
