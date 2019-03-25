@@ -11,6 +11,7 @@ export default class App extends Component {
   // two most common spots for ajax: event handler and componentDidMount()
 
   state = {
+    loading: false,
     response: []
   };
 
@@ -20,9 +21,10 @@ export default class App extends Component {
       method: 'GET',
     };
     
+    this.setState({loading: true});
     fetch(url, options)
       .then(response => { return response.json(); })
-      .then(data => this.setState({response: data}))
+      .then(data => this.setState({response: data, loading: false}))
   
   }
 
@@ -32,11 +34,14 @@ export default class App extends Component {
   }
 
   render() {
-    
+    if(this.state.loading) {
+      return<div>loading...</div>
+    }
     return (
       <>
         <Header />
         <main role="main" className="App">
+        
           Hi!
         </main>
       </>
