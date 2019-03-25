@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export default function SearchForm(props) {
-  
+  console.log(props.searchTerm);
   return (
     <div className="search-form">
       <form onSubmit={(event) => {
@@ -9,7 +9,7 @@ export default function SearchForm(props) {
           props.handleSearchSubmit(event)
         }}>
         <label htmlFor="searchInput">Search: </label>
-        <input id="searchInput" type='text'/>
+        <input id="searchInput" type='text' value={props.searchTerm} />
         <input type="submit" value="Search" />
       </form>
     </div>

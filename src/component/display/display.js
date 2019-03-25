@@ -19,20 +19,12 @@ export default function Display(props) {
     return;  
   }
 
-  function buildImages(inputImages) {
-    if (inputImages)
-      return(
-        <img src={inputImages.imageSmall.smallThumbnail} alt='temp' />
-      )
-    return;
-  }
- 
   return (
     <div className='display'>
-      {books.map(book => {
+      {books.map((book, index) => {
         
         return (
-          <div key={book.id}>
+          <div key={index}>
 
             <h2>{book.title}</h2>
             <span>
@@ -45,10 +37,11 @@ export default function Display(props) {
                 }
               </ul>               */}
             </span>
-            <div>{book.price || 'Not for sale'}</div>
+            {/* <div>{book.price || 'Not for sale'}</div> */}
+            <div>{book.price}</div>
             <p>{book.description}</p>
-            {/* <img src={book.imageSmall.smallThumbnail} alt={book.title}/> */}
-            {buildImages(book.imageSmall.smallThumbnail)}
+            <img src={book.imageSmall} alt={book.title}/>
+           
           </div>
         )
       })}

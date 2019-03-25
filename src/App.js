@@ -18,7 +18,7 @@ export default class App extends Component {
     response: [],
     books: [],
     error: null,
-    currentSearchTerm: '',
+    currentSearchTerm: 'Henry',
     filterByTypeOfBook: '',
     fitlerByIsEbook: false,
   };
@@ -66,7 +66,7 @@ export default class App extends Component {
       }
       const isEbook =  book.saleInfo.isEbook;
       const description = book.volumeInfo.description;
-      const imageSmall = book.volumeInfo.imageLinks;
+      const imageSmall = book.volumeInfo.imageLinks.smallThumbnail;
       return { id, kind, title, authors, price, isForSale, isEbook, description, imageSmall }
     });
 
