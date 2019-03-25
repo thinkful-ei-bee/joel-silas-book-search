@@ -6,7 +6,7 @@ export default function SearchForm(props) {
     <div className="search-form">
       <form onSubmit={(event) => {
           event.preventDefault()
-          props.handleSubmit(event)
+          props.handleSearchSubmit(event)
         }}>
         <label htmlFor="searchInput">Search: </label>
         <input id="searchInput" type='text'/>

@@ -3,7 +3,8 @@ import './App.css';
 import k from './util/accred';
 import Header from './component/header/header';
 import SearchForm from './component/searchform/searchform';
-import Display from './component/Display.js'
+import Display from './component/display/display';
+import Filter from './component/filter/filter';
 
 export default class App extends Component {
   
@@ -18,9 +19,11 @@ export default class App extends Component {
     books: [],
     error: null,
     currentSearchTerm: '',
+    filterByTypeOfBook: '',
+    fitlerByIsEbook: false,
   };
 
-  handleSubmit = (event) => {
+  handleSearchSubmit = (event) => {
     const searchTerms = event.target.searchInput.value;
     const url = `${this.props.baseUrl}?q=${searchTerms}&key=${k}`;
     const options = {
@@ -38,6 +41,12 @@ export default class App extends Component {
       })
       .catch(error => this.setState({ error: error.message, loading: false}));
   }
+
+  handleFilterIsEbook = () => {
+    console.log('filter for ebook');
+    let newFilterByEbook = !this.state.fitlerByIsEbook;
+    this.setState({ fitlerByIsEbook: newFilterByEbook }); 
+  }
   
   handleBooks(bookInput) {
     const books = this.state.response.map(book => {
@@ -54,9 +63,10 @@ export default class App extends Component {
         price = 0;
         isForSale = false;
       }
+      const isEbook =  book.saleInfo.isEbook;
       const description = book.volumeInfo.description;
       const imageSmall = book.volumeInfo.imageLinks;
-      return { id, kind, title, author, price, isForSale, description, imageSmall }
+      return { id, kind, title, author, price, isForSale, isEbook, description, imageSmall }
     });
 
     return books;
@@ -73,34 +83,32 @@ export default class App extends Component {
       return<div>loading...</div>
     } 
 
-    // map over reponse here ...
-    // we need:
-    // book id
+    // Filter by:
     // type of book
-    // book title
-    // author
-    // price
-    // description
-    // image
     // whether the book is a free ebook or not
     //
-    // display books in list
     // optionally allow user to click for further book details
-    
     
     let books = this.handleBooks(this.state.response);
     console.log('handleBooks: ', books);
-    
 
     return (
       <>
         <Header />
         <main role="main" className="App">
           <SearchForm 
-            handleSubmit={this.handleSubmit}
+            handleSearchSubmit={this.handleSearchSubmit}
             searchTerm={this.state.currentSearchTerm}
+            fitlerByIsEbook={this.state.fitlerByIsEbook}
           />
-          <Display books={books}/>
+          <Filter 
+            handleFilterIsEbook={this.handleFilterIsEbook}
+          />
+
+          <Display 
+            fitlerByIsEbook={this.state.fitlerByIsEbook}
+            books={books}
+          />
           
           {/* display books .. */}
           
