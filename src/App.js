@@ -28,16 +28,8 @@ export default class App extends Component {
 
     fetch(url, options)
       .then(response => response.ok ? response.json() : Promise.reject('Something went wrong'))
-      .then(response => 
-        response.items.map( book => {
-          const {id, etag} = book; 
-          const newObj = {id, etag}
-          return newObj;
-        })
-      )
       .then(response => {
-        this.setState({response, loading: false});
-        
+        this.setState({response: response.items, loading: false});  
       })
       .catch(error => this.setState({ error: error.message, loading: false}));
   
@@ -61,7 +53,7 @@ export default class App extends Component {
         <Header />
         <main role="main" className="App">
           {/* <SearchForm handleSubmit={this.handleSubmit}/> */}
-          {this.state.response[0].etag}
+          {this.state.response[0].kind}
         </main>
       </>
     );
