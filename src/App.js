@@ -7,11 +7,6 @@ import Display from './component/display/display';
 import Filter from './component/filter/filter';
 
 export default class App extends Component {
-  
-  // let response = `https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=${k}`;
-  // console.log(response);
-
-  // two most common spots for ajax: event handler and componentDidMount()
 
   state = {
     loading: false,
@@ -27,7 +22,6 @@ export default class App extends Component {
   handleSearchSubmit = (event) => {
     const searchTerms = event.target.searchInput.value;
     const url = `${this.props.baseUrl}?q=${searchTerms}&key=${k}`;
-    // https://www.googleapis.com/books/v1/volumes?q=Henry&k=AIzaSyB_Zh4poj6VRpj1bcDM6HGHeOC1lWBSzS0
     const options = {
       method: 'GET',
     };
@@ -113,6 +107,7 @@ export default class App extends Component {
       <>
         <Header />
         <main role="main" className="App">
+        
           <SearchForm 
             searchTerm={this.state.currentSearchTerm}
             handleSearchSubmit={this.handleSearchSubmit}
@@ -126,8 +121,6 @@ export default class App extends Component {
             fitlerByIsEbook={this.state.fitlerByIsEbook}
             books={books}
           />
-          
-          {/* display books .. */}
           
         </main>
       </>
