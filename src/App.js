@@ -3,6 +3,7 @@ import './App.css';
 import k from './util/accred';
 import Header from './component/header/header';
 import SearchForm from './component/searchform/searchform';
+import Display from './component/Display.js'
 
 export default class App extends Component {
   
@@ -80,7 +81,7 @@ export default class App extends Component {
     
     
     let books = this.handleBooks(this.state.response);
-    console.log(books);
+    console.log('handleBooks: ', books);
     
 
     return (
@@ -91,6 +92,7 @@ export default class App extends Component {
             handleSubmit={this.handleSubmit}
             searchTerm={this.state.currentSearchTerm}
           />
+          <Display books={books}/>
           
           {/* display books .. */}
           
