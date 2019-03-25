@@ -8,19 +8,25 @@ export default class App extends Component {
   // let response = `https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=${k}`;
   // console.log(response);
 
+  // two most common spots for ajax: event handler and componentDidMount()
+
+  state = {
+    response: []
+  };
+
   handleSubmit() {
     const url = `${this.props.baseUrl}?q=flowers+inauthor:keyes&key=${k}`;
     const options = {
       method: 'GET',
     };
-
+    
     let response = fetch(url, options)
       .then(response => { return response.json(); })
-      .then(json => { console.log(json); });
-    return response;
+      .then(data => this.setState({response: data}))
+  
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let test = this.handleSubmit();
     // console.log(test);
   }
