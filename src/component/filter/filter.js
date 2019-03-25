@@ -13,7 +13,7 @@ export default function Filter(props) {
           <option value="mercedes">Mercedes</option>
           <option value="audi">Audi</option>
         </select> 
-        <input id="isFree" type="checkbox" onChange={props.handleFilterIsEbook} />is free
+        <input id="isFree" type="checkbox" onChange={props.handleFilterIsEbook} />E-Book
         
       </form> 
     </div>
