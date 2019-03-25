@@ -46,5 +46,4 @@ export default class App extends Component {
 
 App.defaultProps = {
   baseUrl: 'https://www.googleapis.com/books/v1/volumes',
-  response: ''
 }
