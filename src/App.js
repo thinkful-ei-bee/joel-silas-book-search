@@ -18,7 +18,7 @@ export default class App extends Component {
     currentSearchTerm: 'Henry',
   };
 
-  handleSubmit = (searchTerms) => {
+  handleSubmit = (event) => {
     const url = `${this.props.baseUrl}?q=flowers+inauthor:keyes&key=${k}`;
     // const url = `https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=${k}`;
     const options = {
@@ -26,6 +26,8 @@ export default class App extends Component {
     };
     
     this.setState({loading: true, error: null});
+
+    console.log(event.target.searchInput.value);
 
     fetch(url, options)
       .then(response => response.ok ? response.json() : Promise.reject('Something went wrong'))
@@ -37,7 +39,6 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.handleSubmit();
     console.log(this.state.response)
   }
   
@@ -46,18 +47,16 @@ export default class App extends Component {
       return <div>Error: {this.state.error}</div>
     } else if (this.state.loading) {
       return<div>loading...</div>
-    } else if (this.state.response.length <= 0) {
-      return<div>API response is empty, please contact support.</div>
     } 
     return (
       <>
         <Header />
         <main role="main" className="App">
           <SearchForm 
-            // handleSubmit={this.handleSubmit}
+            handleSubmit={this.handleSubmit}
             searchTerm={this.state.currentSearchTerm}
           />
-          {this.state.response[0].kind}
+          {this.state.response[0]}
         </main>
       </>
     );
