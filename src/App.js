@@ -29,8 +29,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    let test = this.handleSubmit();
-    // console.log(test);
+    this.handleSubmit();
   }
 
   render() {
@@ -41,7 +40,6 @@ export default class App extends Component {
       <>
         <Header />
         <main role="main" className="App">
-        
           Hi!
         </main>
       </>
