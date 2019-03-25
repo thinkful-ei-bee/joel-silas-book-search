@@ -20,7 +20,7 @@ export default class App extends Component {
       method: 'GET',
     };
     
-    let response = fetch(url, options)
+    fetch(url, options)
       .then(response => { return response.json(); })
       .then(data => this.setState({response: data}))
   
