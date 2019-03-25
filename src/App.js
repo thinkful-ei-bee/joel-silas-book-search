@@ -129,12 +129,15 @@ export default class App extends Component {
         <Header />
         <main role="main" className="App">
           <SearchForm 
-            handleSearchSubmit={this.handleSearchSubmit}
             searchTerm={this.state.currentSearchTerm}
             fitlerByIsEbook={this.state.filterByIsEbook}
+            // filterByIsBookFree={this.state.filterByIsBookFree} needed? prob not
+            //
+            handleSearchSubmit={this.handleSearchSubmit}
           />
           <Filter 
             handleFilterIsEbook={this.handleFilterIsEbook}
+            handleFilterIsBookFree={this.handleFilterIsBookFree}
           />
 
           <Display 
