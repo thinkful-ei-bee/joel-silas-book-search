@@ -5,38 +5,48 @@ export default function Display(props) {
   const books = props.books;
   //console.log(books);
 
-  books.map(book => {
-    if(book.isEbook) {
+  if(props.filterByIsEbook === 'true') {
+    console.log('i hear you')
+    return (
+      <div className='display'>
+        {books.map(book => {
 
-    } else {
-      return (
-        <div key={book.id}>
-            <h2>{book.title}</h2>
-            <span>{book.author[0]}</span>
-            <div>{book.price || 'Not for sale'}</div>
-            <p>{book.description}</p>
-            <img src={book.imageSmall.smallThumbnail} alt={book.title}/>
-        </div>
-      )
-    }
+          if(book.price === 0 && book.isForSale) {
+            return (
+              <div key={book.id}>
 
-  })
+                <h2>{book.title}</h2>
+                <span>{book.author[0]}</span>
+                <div>{book.price || 'Not for sale'}</div>
+                <p>{book.description}</p>
+                <img src={book.imageSmall.smallThumbnail} alt={book.title}/>
 
-  return (
-    <div className='display'>
-      {books.map(book => {
-        
-        return (
-          <div key={book.id}>
-            <h2>{book.title}</h2>
-            <span>{book.author[0]}</span>
-            <div>{book.price || 'Not for sale'}</div>
-            <p>{book.description}</p>
-            <img src={book.imageSmall.smallThumbnail} alt={book.title}/>
+              </div>
+            )
+          }
+        })}
+      </div>
+    )
+  } 
+  else {
+    console.log('hello')
+    return (
+      <div className='display'>
+        {books.map(book => {
+          
+          return (
+            <div key={book.id}>
 
-          </div>
-        )
-      })}
-    </div>
-  )
+              <h2>{book.title}</h2>
+              <span>{book.author[0]}</span>
+              <div>{book.price || 'Not for sale'}</div>
+              <p>{book.description}</p>
+              <img src={book.imageSmall.smallThumbnail} alt={book.title}/>
+
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
 }

@@ -55,13 +55,14 @@ export default class App extends Component {
       const title = book.volumeInfo.title;
       const author = book.volumeInfo.authors;
       let price;
-      let isForSale;
+      let isForSale = true;
+      if (book.saleInfo.saleability === 'NOT_FOR_SALE') {
+        isForSale = false;
+      }
       if (book.saleInfo.saleability === 'FOR_SALE') {
         price = book.saleInfo.listPrice.amount;
-        isForSale = true;
       } else {
         price = 0;
-        isForSale = false;
       }
       const isEbook =  book.saleInfo.isEbook;
       const description = book.volumeInfo.description;
