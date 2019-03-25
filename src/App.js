@@ -12,7 +12,8 @@ export default class App extends Component {
 
   state = {
     loading: false,
-    response: []
+    response: [],
+    error: null,
   };
 
   handleSubmit() {
@@ -21,19 +22,23 @@ export default class App extends Component {
       method: 'GET',
     };
     
-    this.setState({loading: true});
+    this.setState({loading: true, error: null});
+
     fetch(url, options)
-      .then(response => { return response.json(); })
+      .then(response => response.ok ? response.json : Promise.reject('Something went wrong'))
       .then(data => this.setState({response: data, loading: false}))
+      .catch(error => this.setState({ error: error.message, loading: false}));
   
   }
 
   componentDidMount() {
     this.handleSubmit();
   }
-
+  
   render() {
-    if(this.state.loading) {
+    if (this.state.error) {
+      return <div>Error: {this.state.error}</div>
+    } else if (this.state.loading) {
       return<div>loading...</div>
     }
     return (
