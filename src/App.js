@@ -21,6 +21,7 @@ export default class App extends Component {
     currentSearchTerm: 'Henry',
     filterByTypeOfBook: '',
     fitlerByIsEbook: false,
+    filterByIsBookFree: false,
   };
 
   handleSearchSubmit = (event) => {
@@ -44,11 +45,15 @@ export default class App extends Component {
   }
 
   handleFilterIsEbook = () => {
-    console.log('filter for ebook');
-    let newFilterByEbook = !this.state.fitlerByIsEbook;
-    this.setState({ fitlerByIsEbook: newFilterByEbook }); 
+    let opposite = !this.state.fitlerByIsEbook;
+    this.setState({ fitlerByIsEbook: opposite }); 
   }
   
+  handleFilterIsBookFree = () => {
+    let opposite = !this.state.filterByIsBookFree;
+    this.setState({ filterByFree: opposite });
+  }
+
   handleBooks(bookInput) {
     const books = this.state.response.map(book => {
       const id = book.id;
