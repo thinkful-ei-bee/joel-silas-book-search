@@ -20,7 +20,7 @@ export default class App extends Component {
     error: null,
     currentSearchTerm: 'Henry',
     filterByTypeOfBook: '',
-    fitlerByIsEbook: false,
+    filterByIsEbook: false,
     filterByIsBookFree: false,
   };
 
@@ -45,8 +45,8 @@ export default class App extends Component {
   }
 
   handleFilterIsEbook = () => {
-    let opposite = !this.state.fitlerByIsEbook;
-    this.setState({ fitlerByIsEbook: opposite }); 
+    let opposite = !this.state.filterByIsEbook;
+    this.setState({ filterByIsEbook: opposite }); 
   }
   
   handleFilterIsBookFree = () => {
@@ -78,7 +78,7 @@ export default class App extends Component {
 
     let filtered = books;
 
-    if (this.state.fitlerByIsEbook) {
+    if (this.state.filterByIsEbook) {
       console.log('filtering for e-books');
       let newFiltered;
       newFiltered = filtered.filter( book => {
@@ -131,7 +131,7 @@ export default class App extends Component {
           <SearchForm 
             handleSearchSubmit={this.handleSearchSubmit}
             searchTerm={this.state.currentSearchTerm}
-            fitlerByIsEbook={this.state.fitlerByIsEbook}
+            fitlerByIsEbook={this.state.filterByIsEbook}
           />
           <Filter 
             handleFilterIsEbook={this.handleFilterIsEbook}
