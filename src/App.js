@@ -26,6 +26,7 @@ export default class App extends Component {
   handleSearchSubmit = (event) => {
     const searchTerms = event.target.searchInput.value;
     const url = `${this.props.baseUrl}?q=${searchTerms}&key=${k}`;
+    // https://www.googleapis.com/books/v1/volumes?q=Henry&k=AIzaSyB_Zh4poj6VRpj1bcDM6HGHeOC1lWBSzS0
     const options = {
       method: 'GET',
     };
@@ -71,9 +72,29 @@ export default class App extends Component {
     });
 
     let filtered = books;
-    if(this.state.fitlerByIsEbook) {
-      filtered = books.map( book => book.isEbook);
+
+    if (this.state.fitlerByIsEbook) {
+      console.log('filtering for e-books');
+      let newFiltered;
+      newFiltered = filtered.filter( book => {
+        if(book.isEbook) {
+          return book;
+        }
+      });
+      filtered = newFiltered;
     }
+
+    if (this.state.filterByFree) {
+      console.log('filtering for free books');
+      let newFiltered;
+      newFiltered = filtered.filter( book => {
+        if(book.price && book.prices === 0) {
+          return book;
+        }
+      });
+      filtered = newFiltered;
+    }
+
 
     return filtered;
   }
