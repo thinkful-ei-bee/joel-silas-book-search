@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import k from './util/accred';
 import Header from './component/header/header';
+import SearchForm from './component/searchform/searchform';
 
 export default class App extends Component {
   
@@ -16,8 +17,9 @@ export default class App extends Component {
     error: null,
   };
 
-  handleSubmit() {
-    const url = `${this.props.baseUrl}?q=flowers+inauthor:keyes&key=${k}`;
+  handleSubmit = (searchTerms) => {
+    //const url = `${this.props.baseUrl}?q=flowers+inauthor:keyes&key=${k}`;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=${k}`;
     const options = {
       method: 'GET',
     };
@@ -25,14 +27,18 @@ export default class App extends Component {
     this.setState({loading: true, error: null});
 
     fetch(url, options)
-      .then(response => response.ok ? response.json : Promise.reject('Something went wrong'))
-      .then(data => this.setState({response: data, loading: false}))
+      .then(response => response.ok ? response.json() : Promise.reject('Something went wrong'))
+      .then(response => {
+        this.setState({response, loading: false});
+        
+      })
       .catch(error => this.setState({ error: error.message, loading: false}));
   
   }
 
   componentDidMount() {
     this.handleSubmit();
+    console.log(this.state.response)
   }
   
   render() {
@@ -40,12 +46,15 @@ export default class App extends Component {
       return <div>Error: {this.state.error}</div>
     } else if (this.state.loading) {
       return<div>loading...</div>
-    }
+    } else if (this.state.response.length <= 0) {
+      return<div>API response is empty, please contact support.</div>
+    } 
     return (
       <>
         <Header />
         <main role="main" className="App">
-          Hi!
+          {/* <SearchForm handleSubmit={this.handleSubmit}/> */}
+          {this.state.response[0]}
         </main>
       </>
     );
