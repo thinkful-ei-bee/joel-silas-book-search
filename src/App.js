@@ -15,19 +15,17 @@ export default class App extends Component {
     loading: false,
     response: [],
     error: null,
-    currentSearchTerm: 'Henry',
+    currentSearchTerm: '',
   };
 
   handleSubmit = (event) => {
-    const url = `${this.props.baseUrl}?q=flowers+inauthor:keyes&key=${k}`;
-    // const url = `https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=${k}`;
+    const searchTerms = event.target.searchInput.value;
+    const url = `${this.props.baseUrl}?q=${searchTerms}&key=${k}`;
     const options = {
       method: 'GET',
     };
     
     this.setState({loading: true, error: null});
-
-    console.log(event.target.searchInput.value);
 
     fetch(url, options)
       .then(response => response.ok ? response.json() : Promise.reject('Something went wrong'))
@@ -35,7 +33,7 @@ export default class App extends Component {
         this.setState({response: response.items, loading: false});  
       })
       .catch(error => this.setState({ error: error.message, loading: false}));
-  
+
   }
 
   componentDidMount() {
@@ -48,6 +46,9 @@ export default class App extends Component {
     } else if (this.state.loading) {
       return<div>loading...</div>
     } 
+
+    // map over reponse here ...
+
     return (
       <>
         <Header />
@@ -56,7 +57,7 @@ export default class App extends Component {
             handleSubmit={this.handleSubmit}
             searchTerm={this.state.currentSearchTerm}
           />
-          {this.state.response[0]}
+          {/* {this.state.response[0]} */}
         </main>
       </>
     );
