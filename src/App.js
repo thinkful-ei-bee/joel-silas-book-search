@@ -45,10 +45,23 @@ export default class App extends Component {
       const kind = book.kind;
       const title = book.volumeInfo.title;
       const author = book.volumeInfo.authors;
-      const price = book.saleInfo;
+      const price = () => {
+        if (book.saleInfo.saleability === 'FOR_SALE') {
+          return book.saleInfo.listPrice.amount;
+        } else {
+          return 0;
+        }
+      }
+      const isForSale = () => {
+        if (book.saleInfo.saleability === 'FOR_SALE') {
+          return true;
+        } else {
+          return false;
+        }
+      }
       const description = book.volumeInfo.description;
       const imageSmall = book.volumeInfo.imageLinks;
-      return { id, kind, title, author, price, description, imageSmall }
+      return { id, kind, title, author, price, isForSale, description, imageSmall }
     });
 
     return books;

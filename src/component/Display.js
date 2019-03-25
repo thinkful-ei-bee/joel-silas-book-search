@@ -12,8 +12,8 @@ export default function Display(props) {
           <div key={book.id}>
             <h2>{book.title}</h2>
             <span>{book.author[0]}</span>
-            {book.price.listPrice.amount && <div>{book.price.listPrice.amount}</div>}
-            <p>book.description</p>
+            <div>{book.price}</div>
+            <p>{book.description}</p>
             <img src={book.imageSmall.smallThumbnail} alt={book.title}/>
 
           </div>
