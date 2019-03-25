@@ -53,7 +53,7 @@ export default class App extends Component {
       const id = book.id;
       const kind = book.kind;
       const title = book.volumeInfo.title;
-      const author = book.volumeInfo.authors;
+      const authors = book.volumeInfo.authors;
       let price;
       let isForSale = true;
       if (book.saleInfo.saleability === 'NOT_FOR_SALE') {
@@ -67,10 +67,15 @@ export default class App extends Component {
       const isEbook =  book.saleInfo.isEbook;
       const description = book.volumeInfo.description;
       const imageSmall = book.volumeInfo.imageLinks;
-      return { id, kind, title, author, price, isForSale, isEbook, description, imageSmall }
+      return { id, kind, title, authors, price, isForSale, isEbook, description, imageSmall }
     });
 
-    return books;
+    let filtered = books;
+    if(this.state.fitlerByIsEbook) {
+      filtered = books.map( book => book.isEbook);
+    }
+
+    return filtered;
   }
 
   componentDidMount() {
