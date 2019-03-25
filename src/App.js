@@ -14,6 +14,7 @@ export default class App extends Component {
   state = {
     loading: false,
     response: [],
+    books: [],
     error: null,
     currentSearchTerm: '',
   };
@@ -25,19 +26,35 @@ export default class App extends Component {
       method: 'GET',
     };
     
-    this.setState({loading: true, error: null});
+    this.setState({loading: true, error: null}); 
 
     fetch(url, options)
       .then(response => response.ok ? response.json() : Promise.reject('Something went wrong'))
       .then(response => {
-        this.setState({response: response.items, loading: false});  
+        this.setState(
+          {response: response.items, loading: false}  
+        );  
       })
       .catch(error => this.setState({ error: error.message, loading: false}));
+  }
+  
+  handleBooks(bookInput) {
+    const books = this.state.response.map(book => {
+      const id = book.id;
+      const kind = book.kind;
+      const title = book.volumeInfo.title;
+      const author = book.volumeInfo.authors;
+      const price = book.saleInfo;
+      const description = book.volumeInfo.description;
+      const imageSmall = book.volumeInfo.imageLinks;
+      return { id, kind, title, author, price, description, imageSmall }
+    });
 
+    return books;
   }
 
   componentDidMount() {
-    console.log(this.state.response)
+    // console.log(this.state.response)
   }
   
   render() {
@@ -48,6 +65,23 @@ export default class App extends Component {
     } 
 
     // map over reponse here ...
+    // we need:
+    // book id
+    // type of book
+    // book title
+    // author
+    // price
+    // description
+    // image
+    // whether the book is a free ebook or not
+    //
+    // display books in list
+    // optionally allow user to click for further book details
+    
+    
+    let books = this.handleBooks(this.state.response);
+    console.log(books);
+    
 
     return (
       <>
@@ -57,7 +91,9 @@ export default class App extends Component {
             handleSubmit={this.handleSubmit}
             searchTerm={this.state.currentSearchTerm}
           />
-          {/* {this.state.response[0]} */}
+          
+          {/* display books .. */}
+          
         </main>
       </>
     );
