@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 
-export default class SearchForm extends Component {
-  render() {
-    return (
-      <div className="search-form">
-        search
-      </div>
-    );
-  }
+export default function SearchForm(props) {
+
+  return (
+    <div className="search-form">
+      <form onSubmit={props.handleSubmit()}>
+        <label>Name: </label>
+        <input type='text' value={props.searchTerm} />
+      </form>
+    </div>
+  )
 }
+
+
+  

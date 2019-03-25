@@ -15,6 +15,7 @@ export default class App extends Component {
     loading: false,
     response: [],
     error: null,
+    currentSearchTerm: 'Henry',
   };
 
   handleSubmit = (searchTerms) => {
@@ -52,7 +53,10 @@ export default class App extends Component {
       <>
         <Header />
         <main role="main" className="App">
-          {/* <SearchForm handleSubmit={this.handleSubmit}/> */}
+          <SearchForm 
+            handleSubmit={this.handleSubmit}
+            searchTerm={this.state.currentSearchTerm}
+          />
           {this.state.response[0].kind}
         </main>
       </>
