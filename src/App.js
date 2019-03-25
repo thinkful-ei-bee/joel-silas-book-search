@@ -81,25 +81,16 @@ export default class App extends Component {
     if (this.state.filterByIsEbook) {
       console.log('filtering for e-books');
       let newFiltered;
-      newFiltered = filtered.filter( book => {
-        if(book.isEbook) {
-          return book;
-        }
-      });
+      newFiltered = filtered.filter( book => book.isEbook );
       filtered = newFiltered;
     }
 
     if (this.state.filterByFree) {
       console.log('filtering for free books');
       let newFiltered;
-      newFiltered = filtered.filter( book => {
-        if(book.price && book.prices === 0) {
-          return book;
-        }
-      });
+      newFiltered =  filtered.filter( book => book.price === 0 );
       filtered = newFiltered;
     }
-
 
     return filtered;
   }
@@ -114,12 +105,6 @@ export default class App extends Component {
     } else if (this.state.loading) {
       return<div>loading...</div>
     } 
-
-    // Filter by:
-    // type of book
-    // whether the book is a free ebook or not
-    //
-    // optionally allow user to click for further book details
     
     let books = this.handleBooks(this.state.response);
     console.log('handleBooks: ', books);
