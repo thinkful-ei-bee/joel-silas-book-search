@@ -115,9 +115,6 @@ export default class App extends Component {
         <main role="main" className="App">
           <SearchForm 
             searchTerm={this.state.currentSearchTerm}
-            fitlerByIsEbook={this.state.filterByIsEbook}
-            // filterByIsBookFree={this.state.filterByIsBookFree} needed? prob not
-            //
             handleSearchSubmit={this.handleSearchSubmit}
           />
           <Filter 
