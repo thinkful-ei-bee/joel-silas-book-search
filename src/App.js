@@ -38,14 +38,15 @@ export default class App extends Component {
       .catch(error => this.setState({ error: error.message, loading: false}));
   }
 
-  handleFilterIsEbook = () => {
+  handleFilterIsEbook() {
+    console.log(this);
     let opposite = !this.state.filterByIsEbook;
     this.setState({ filterByIsEbook: opposite }); 
   }
   
-  handleFilterIsBookFree = () => {
+  handleFilterIsBookFree() {
     let opposite = !this.state.filterByIsBookFree;
-    this.setState({ filterByFree: opposite });
+    this.setState({ filterByIsBookFree: opposite });
   }
 
   handleBooks(bookInput) {
@@ -66,12 +67,13 @@ export default class App extends Component {
       }
       const isEbook =  book.saleInfo.isEbook;
       const description = book.volumeInfo.description;
-      const imageSmall = book.volumeInfo.imageLinks.smallThumbnail;
+      // const imageSmall = book.volumeInfo.imageLinks.smallThumbnail;
+      const imageSmall = '';
       return { id, kind, title, authors, price, isForSale, isEbook, description, imageSmall }
     });
 
     let filtered = books;
-
+    console.log(this.state);
     if (this.state.filterByIsEbook) {
       console.log('filtering for e-books');
       let newFiltered;
@@ -79,7 +81,7 @@ export default class App extends Component {
       filtered = newFiltered;
     }
 
-    if (this.state.filterByFree) {
+    if (this.state.filterByIsBookFree) {
       console.log('filtering for free books');
       let newFiltered;
       newFiltered =  filtered.filter( book => book.price === 0 );
@@ -113,8 +115,8 @@ export default class App extends Component {
             handleSearchSubmit={this.handleSearchSubmit}
           />
           <Filter 
-            handleFilterIsEbook={this.handleFilterIsEbook}
-            handleFilterIsBookFree={this.handleFilterIsBookFree}
+            handleFilterIsEbook={this.handleFilterIsEbook.bind(this)}
+            handleFilterIsBookFree={this.handleFilterIsBookFree.bind(this)}
           />
 
           <Display 

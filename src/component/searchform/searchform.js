@@ -9,7 +9,7 @@ export default function SearchForm(props) {
           props.handleSearchSubmit(event)
         }}>
         <label htmlFor="searchInput">Search: </label>
-        <input id="searchInput" type='text' value={props.searchTerm} />
+        <input id="searchInput" type='text' />
         <input type="submit" value="Search" />
       </form>
     </div>
