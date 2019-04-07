@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import k from './util/accred';
+import config from './util/accred';
 import Header from './component/header/header';
 import SearchForm from './component/searchform/searchform';
 import Display from './component/display/display';
@@ -21,7 +21,7 @@ export default class App extends Component {
 
   handleSearchSubmit = (event) => {
     const searchTerms = event.target.searchInput.value;
-    const url = `${this.props.baseUrl}?q=${searchTerms}&key=${k}`;
+    const url = `${this.props.baseUrl}?q=${searchTerms}&key=${config.API_KEY}`;
     const options = {
       method: 'GET',
     };
